@@ -24,6 +24,12 @@ class MainActivity : AppCompatActivity() {
         floatbutton()
     }
 
+    override fun onResume() {
+        super.onResume()
+        activityMainBinding.apply {
+            recyclerview.adapter?.notifyDataSetChanged()
+        }
+    }
     //뷰설정
     fun initView(){
         activityMainBinding.apply {
@@ -111,6 +117,11 @@ class MainActivity : AppCompatActivity() {
                 CountryType.SWISS -> {
                     holder.mainBinding.recyclerImage.setImageResource(R.drawable.swiss_gh)
                 }
+            }
+            holder.mainBinding.root.setOnClickListener {
+                var newIntent = Intent(this@MainActivity, InfoActivity::class.java)
+                newIntent.putExtra("position", position)
+                startActivity(newIntent)
             }
         }
     }

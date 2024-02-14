@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.isVisible
 import kr.co.lion.android01.myproject_triptrap.databinding.ActivityInputBinding
+import kr.co.lion.androidproject1test.ApelVisit
+import kr.co.lion.androidproject1test.Chiness
+import kr.co.lion.androidproject1test.JapanVisit
 import kr.co.lion.androidproject1test.Util
 
 class InputActivity : AppCompatActivity() {
@@ -33,7 +36,7 @@ class InputActivity : AppCompatActivity() {
                 inflateMenu(R.menu.input_menu)
                 //메뉴를 클릭했을 때
                 setOnMenuItemClickListener {
-                    var newIntent = Intent()
+                    inputInfo()
                     finish()
 
                     true
@@ -113,8 +116,74 @@ class InputActivity : AppCompatActivity() {
 
     }
 
-    //유효성 검사
-    fun checkOK(){
+
+    //입력을 받는다
+    fun inputInfo(){
+        activityInputBinding.apply {
+            //타입별로 분기한다
+            when(toggleGroup.checkedButtonId){
+                R.id.japanButton -> {
+                    var japan = Japan()
+                    japan.name = nameEditText.text.toString()
+                    japan.visit = sliderTrip.value.toInt()
+                    japan.visitJapanCity = when(toggleGroup2.checkedButtonId){
+                        R.id.tokyoButton -> JapanVisit.TOKYO
+                        R.id.osakaButton -> JapanVisit.OSAKA
+                        R.id.fukuokaButton -> JapanVisit.FUKUOKA
+                        R.id.otherButton -> JapanVisit.OTHER
+                        else -> JapanVisit.OTHER
+                    }
+                    japan.rememberPlace = favoritePlace.text.toString()
+                        Util.worldList.add(japan)
+                }
+                R.id.chinaButton -> {
+                    var china = China()
+                    china.name = nameEditText.text.toString()
+                    china.visit = sliderTrip.value.toInt()
+                    china.visitChinaCity = visitCitytext.text.toString()
+                    china.chinaLanguage = when(radioGroup.checkedRadioButtonId){
+                        R.id.radioButton -> Chiness.NEVER
+                        R.id.radioButton2 -> Chiness.LITTLE
+                        R.id.radioButton3 -> Chiness.ALOTS
+                        R.id.radioButton4 -> Chiness.WELL
+                        else -> Chiness.LITTLE
+                    }
+                    Util.worldList.add(china)
+
+                }
+                R.id.englandButton -> {
+                    var england = England()
+                    england.name = nameEditText.text.toString()
+                    england.visit = sliderTrip.value.toInt()
+                    england.rememberEnglandFood = rememberFood.text.toString()
+                    england.rememberEnglandShop = rememberShopping.text.toString()
+                    Util.worldList.add(england)
+
+                }
+                R.id.franceButton -> {
+                    var france = France()
+                    france.name = nameEditText.text.toString()
+                    france.visit = sliderTrip.value.toInt()
+                    france.visitFranceApel = when(toggleGroup3.checkedButtonId){
+                        R.id.apelMorningButton -> ApelVisit.MORNING
+                        R.id.apelEvening -> ApelVisit.EVENING
+                        else -> ApelVisit.MORNING
+                    }
+                    france.rememberFranceFood = rememberFood2.text.toString()
+                    Util.worldList.add(france)
+
+                }
+                R.id.swissButton -> {
+                    var swiss = Swiss()
+                    swiss.name = nameEditText.text.toString()
+                    swiss.visit = sliderTrip.value.toInt()
+                    swiss.houseSwissLocation = houseLocationText.text.toString()
+                    swiss.swissMoney = moneyText.text.toString().toInt()
+                    Util.worldList.add(swiss)
+
+                }
+            }
+        }
 
     }
 }
