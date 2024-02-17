@@ -99,9 +99,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: GatherCountry, position: Int) {
-            var world = Util.worldList[position]
-            holder.mainBinding.recyclerText.text = world.name
-            when(world.type){
+            var world1 = Util.worldList[position]
+            holder.mainBinding.recyclerText.text = world1.name
+            when(world1.type){
                 CountryType.JAPAN -> {
                     holder.mainBinding.recyclerImage.setImageResource(R.drawable.japan_gh)
                 }

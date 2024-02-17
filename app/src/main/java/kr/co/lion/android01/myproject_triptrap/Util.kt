@@ -1,11 +1,13 @@
 package kr.co.lion.androidproject1test
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.SystemClock
 import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kr.co.lion.android01.myproject_triptrap.World
 import kotlin.concurrent.thread
 
@@ -32,6 +34,16 @@ class Util {
                 val inputMethodManager = activity.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(activity.window.currentFocus?.windowToken, 0);
             }
+        }
+        //안내를 위한 다이얼로그를 보여준다
+        fun showInfoDiaLog(context: Context, title:String, message:String, listener:(DialogInterface, Int) -> Unit ){
+            var diaLogBuilder = MaterialAlertDialogBuilder(context)
+            diaLogBuilder.setTitle(title)
+            diaLogBuilder.setMessage(message)
+            diaLogBuilder.setPositiveButton("확인", listener)
+            diaLogBuilder.show()
+
+
         }
     }
 }

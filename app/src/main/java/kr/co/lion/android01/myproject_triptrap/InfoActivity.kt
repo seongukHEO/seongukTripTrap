@@ -67,7 +67,8 @@ class InfoActivity : AppCompatActivity() {
                 var infofo = intent.getIntExtra("position", 0)
                 var info = Util.worldList[infofo]
                 //공통
-                text = "이름 : ${info.name}\n"
+                text = "방문 국가 : ${info.type.str}\n"
+                append("이름 : ${info.name}\n")
                 append("여행 기간 : ${info.visit}일\n")
                 //여행지 별로 분기
                 when(info.type){

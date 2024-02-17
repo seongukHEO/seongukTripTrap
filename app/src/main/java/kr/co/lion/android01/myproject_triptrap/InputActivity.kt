@@ -1,12 +1,13 @@
 package kr.co.lion.android01.myproject_triptrap
 
-import android.content.Intent
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.isVisible
 import kr.co.lion.android01.myproject_triptrap.databinding.ActivityInputBinding
 import kr.co.lion.androidproject1test.ApelVisit
 import kr.co.lion.androidproject1test.Chiness
+import kr.co.lion.androidproject1test.CountryType
 import kr.co.lion.androidproject1test.JapanVisit
 import kr.co.lion.androidproject1test.Util
 
@@ -36,8 +37,7 @@ class InputActivity : AppCompatActivity() {
                 inflateMenu(R.menu.input_menu)
                 //메뉴를 클릭했을 때
                 setOnMenuItemClickListener {
-                    inputInfo()
-                    finish()
+                    checkOK()
 
                     true
                 }
@@ -124,6 +124,7 @@ class InputActivity : AppCompatActivity() {
             when(toggleGroup.checkedButtonId){
                 R.id.japanButton -> {
                     var japan = Japan()
+                    japan.type = CountryType.JAPAN
                     japan.name = nameEditText.text.toString()
                     japan.visit = sliderTrip.value.toInt()
                     japan.visitJapanCity = when(toggleGroup2.checkedButtonId){
@@ -138,6 +139,7 @@ class InputActivity : AppCompatActivity() {
                 }
                 R.id.chinaButton -> {
                     var china = China()
+                    china.type = CountryType.CHINA
                     china.name = nameEditText.text.toString()
                     china.visit = sliderTrip.value.toInt()
                     china.visitChinaCity = visitCitytext.text.toString()
@@ -153,6 +155,7 @@ class InputActivity : AppCompatActivity() {
                 }
                 R.id.englandButton -> {
                     var england = England()
+                    england.type = CountryType.ENGLAND
                     england.name = nameEditText.text.toString()
                     england.visit = sliderTrip.value.toInt()
                     england.rememberEnglandFood = rememberFood.text.toString()
@@ -162,6 +165,7 @@ class InputActivity : AppCompatActivity() {
                 }
                 R.id.franceButton -> {
                     var france = France()
+                    france.type = CountryType.FRANCE
                     france.name = nameEditText.text.toString()
                     france.visit = sliderTrip.value.toInt()
                     france.visitFranceApel = when(toggleGroup3.checkedButtonId){
@@ -175,6 +179,7 @@ class InputActivity : AppCompatActivity() {
                 }
                 R.id.swissButton -> {
                     var swiss = Swiss()
+                    swiss.type = CountryType.SWISS
                     swiss.name = nameEditText.text.toString()
                     swiss.visit = sliderTrip.value.toInt()
                     swiss.houseSwissLocation = houseLocationText.text.toString()
@@ -185,6 +190,95 @@ class InputActivity : AppCompatActivity() {
             }
         }
 
+    }
+    // 유효성 검사
+    fun checkOK(){
+        activityInputBinding.apply {
+            //공통
+            var name = nameEditText.text.toString()
+            if (name.trim().isEmpty()) {
+                Util.showInfoDiaLog(
+                    this@InputActivity,
+                    "이름 입력 오류",
+                    "이름을 입력해주세요"
+                ) { dialogInterface: DialogInterface, i: Int ->
+                    Util.showSoftInput(nameEditText, this@InputActivity)
+                }
+                return
+            }
+
+            //국가별
+            when(toggleGroup.checkedButtonId){
+                //일본
+                R.id.japanButton -> {
+                    var favorite = favoritePlace.text.toString()
+                    if (favorite.trim().isEmpty()){
+                        Util.showInfoDiaLog(this@InputActivity, "인상깊은 관광지 입력 오류", "인상깊은 관광지를 입력해주세요"){ dialogInterface: DialogInterface, i: Int ->
+                            Util.showSoftInput(favoritePlace, this@InputActivity)
+                        }
+                        return
+                    }
+                }
+                //중국
+                R.id.chinaButton -> {
+                    var visitplace = visitCitytext.text.toString()
+                    if (visitplace.trim().isEmpty()){
+                        Util.showInfoDiaLog(this@InputActivity, "방문한 도시 입력 오류", "방문한 도시를 입력해주세요"){ dialogInterface: DialogInterface, i: Int ->
+                            Util.showSoftInput(visitCitytext, this@InputActivity)
+                        }
+                        return
+                    }
+                }
+                //영국
+                R.id.englandButton -> {
+                    var rememberFood1 = rememberFood.text.toString()
+                    if (rememberFood1.trim().isEmpty()){
+                        Util.showInfoDiaLog(this@InputActivity, "기억에 남는 음식 입력 오류", "기억에 남는 음식을 입력해주세요"){ dialogInterface: DialogInterface, i: Int ->
+                            Util.showSoftInput(rememberFood, this@InputActivity)
+                        }
+                        return
+                    }
+                    var rememberShop = rememberShopping.text.toString()
+                    if (rememberShop.trim().isEmpty()){
+                        Util.showInfoDiaLog(this@InputActivity, "기억에 남는 쇼핑 목록 입력 오류", "기억에 남는 쇼핑 목록을 입력해주세요"){ dialogInterface: DialogInterface, i: Int ->
+                            Util.showSoftInput(rememberShopping, this@InputActivity)
+                        }
+                        return
+                    }
+
+                }
+                //프랑스
+                R.id.franceButton -> {
+                    var remFood2 = rememberFood2.text.toString()
+                    if (remFood2.trim().isEmpty()){
+                        Util.showInfoDiaLog(this@InputActivity, "기억에 남는 음식 입력 오류", "기억에 남는 음식을 입력해주세요"){ dialogInterface: DialogInterface, i: Int ->
+                            Util.showSoftInput(rememberFood2, this@InputActivity)
+                        }
+                        return
+                    }
+                }
+                //스위스
+                R.id.swissButton -> {
+                    var house = houseLocationText.text.toString()
+                    if (house.trim().isEmpty()){
+                        Util.showInfoDiaLog(this@InputActivity, "숙소의 위치 입력 오류", "숙소의 위치를 입력해주세요"){ dialogInterface: DialogInterface, i: Int ->
+                            Util.showSoftInput(houseLocationText, this@InputActivity)
+                        }
+                        return
+                    }
+                    var money = moneyText.text.toString()
+                    if (money.trim().isEmpty()){
+                        Util.showInfoDiaLog(this@InputActivity, "경비 입력 오류", "경비를 입력해주세요"){ dialogInterface: DialogInterface, i: Int ->
+                            Util.showSoftInput(moneyText, this@InputActivity)
+                        }
+                        return
+                    }
+                }
+            }
+            inputInfo()
+            finish()
+
+        }
     }
 }
 
