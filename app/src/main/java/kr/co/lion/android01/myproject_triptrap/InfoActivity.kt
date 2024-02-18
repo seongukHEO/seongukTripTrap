@@ -105,6 +105,12 @@ class InfoActivity : AppCompatActivity() {
             }
         }
     }
+
+    //이게 있어야 돌아왔을 때 갱신을 하지!
+    override fun onResume() {
+        super.onResume()
+        setEvent()
+    }
 }
 
 
