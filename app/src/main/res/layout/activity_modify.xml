@@ -72,7 +72,9 @@
                         android:id="@+id/ModifytoggleGroup2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp">
+                        android:layout_marginTop="20dp"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
 
                         <Button
                             android:id="@+id/ModifytokyoButton"
@@ -231,7 +233,9 @@
                         android:id="@+id/ModifytoggleGroup3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
 
                         <Button
                             android:id="@+id/ModifyapelMorningButton"

@@ -76,6 +76,15 @@ enum class ApelVisit(var num: Int, var str: String){
     EVENING(1, "오후")
 }
 
+enum class ShowsFilter(var num: Int, var str: String){
+    FILTER_TYPE_ALL(0, "전부"),
+    FILTER_TYPE_JAPAN(1, "일본"),
+    FILTER_TYPE_CHINA(2, "중국"),
+    FILTER_TYPE_ENGLAND(3, "영국"),
+    FILTER_TYPE_FRANCE(4, "프랑스"),
+    FILTER_TYPE_SWISS(5, "스위스")
+}
+
 
 
 
